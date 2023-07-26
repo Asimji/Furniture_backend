@@ -7,19 +7,26 @@ const userRouter=express.Router();
 
 userRouter.post('/signup',async(req,res)=>{
     const {email,password,Full_Name,phone,age}=req.body;
+    const user=await userModel.findOne({email})
     if(password.length>5 && phone.length===10){
   try {
-    bcrypt.hash(password, 3,async (err, hash)=> {
-        // Store hash in your password DB.
-        if(hash){
-            const user=new userModel({Full_Name,email,password:hash,age,phone})
-            await user.save()
-     res.status(200).json({msg:`${Full_Name} is Successfully Register`})
-        }
-        else{
-            res.status(200).json({error:err.message})
-        }
-    });
+    if(user){
+
+        bcrypt.hash(password, 3,async (err, hash)=> {
+            // Store hash in your password DB.
+            if(hash){
+                const user=new userModel({Full_Name,email,password:hash,age,phone})
+                await user.save()
+         res.status(200).json({msg:`${Full_Name} is Successfully Register`})
+            }
+            else{
+                res.status(200).json({error:err.message})
+            }
+        });
+    }
+    else{
+        res.status(400).json({msg:"User already exist"})
+    }
 
   } catch (error) {
     res.status(400).json({error:error.message})
