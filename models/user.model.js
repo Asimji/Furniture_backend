@@ -16,10 +16,6 @@ const userSchema=mongoose.Schema({
     age:{
    type:Number,
    require:true
-    },
-    mobile:{
-        type:String,
-        require:true
     }
 },{
     versionKey:false
