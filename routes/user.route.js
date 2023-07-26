@@ -10,7 +10,7 @@ userRouter.post('/signup',async(req,res)=>{
     const user=await userModel.findOne({email})
     if(password.length>5 && phone.length===10){
   try {
-    if(user){
+    if(!user){
 
         bcrypt.hash(password, 3,async (err, hash)=> {
             // Store hash in your password DB.
