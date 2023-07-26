@@ -6,9 +6,9 @@ const blacklist = require("../blacklist");
 const userRouter=express.Router();
 
 userRouter.post('/signup',async(req,res)=>{
-    const {email,password,Full_Name,phone,age}=req.body;
+    const {email,password,Full_Name,age}=req.body;
     const user=await userModel.findOne({email})
-    if(password.length>5 && phone.length===10){
+    if(password.length>5){
   try {
     if(!user){
 
