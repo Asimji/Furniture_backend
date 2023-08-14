@@ -3,27 +3,27 @@ const mongoose=require("mongoose");
 const cartSchema=mongoose.Schema({
     brand:{
         type:String,
-        require:true
+        required:true
     },
     image:{
         type:String,
-        require:true
+        required:true
     },
     description:{
         type:String,
-        require:true
+        required:true
     },
     price:{
         type:Number,
-        require:true
+        required:true
     },
     quantity:{
         type:Number,
-        require:true
+        required:true
     },
     type:{
         type:String,
-        require:true
+        required:true
     },
     userId:String,
     userName:String,

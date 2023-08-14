@@ -7,25 +7,29 @@ const cartRoute=express.Router();
 cartRoute.use(auth);
 
 cartRoute.post('/create',async(req,res)=>{
-    let existedData=req.body.description
-    let userName=req.body.userName
-    if(req.body.quantity>1){
-        req.body.quantity=1
+    const existedData = req.body.brand;
+    const userName = req.body.userName;
+
+    if (req.body.quantity > 1) {
+        req.body.quantity = 1;
     }
-        try {
-            let checkData=await cartModel.find({description:existedData,userName})
-            if(checkData){
-                res.status(200).json({msg:"Product Already In Your Cart"})
-            }
-            else{
-                let cart=new cartModel(req.body);
-                await cart.save();
-                res.status(200).json({cart,msg:"Successfully Added in Your Cart"})
-            }
+    try {
+
+        const checkData = await cartModel.findOne({ brand: existedData });
+
+        if (checkData) {
             
-        } catch (error) {
-            res.status(400).json({error:error.message})
+            res.status(200).json({ msg: "Product Already In Your Cart" });
+        } else {
+
+            const cart = new cartModel(req.body);
+            await cart.save();
+            res.status(200).json({ cart, msg: "Successfully Added in Your Cart" });
         }
+    } catch (error) {
+        
+        res.status(400).json({ error: error.message });
+    }
     
 })
 
