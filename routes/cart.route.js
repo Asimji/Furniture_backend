@@ -8,11 +8,12 @@ cartRoute.use(auth);
 
 cartRoute.post('/create',async(req,res)=>{
     let existedData=req.body.description
+    let userName=req.body.userName
     if(req.body.quantity>1){
         req.body.quantity=1
     }
         try {
-            let checkData=await cartModel.findOne({description:existedData})
+            let checkData=await cartModel.find({description:existedData,userName})
             if(checkData){
                 res.status(200).json({msg:"Product Already In Your Cart"})
             }
