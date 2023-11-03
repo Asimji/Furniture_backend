@@ -7,7 +7,7 @@ const token=req.headers.authorization?.split(" ")[1];
 if(token){
     try {
         if(blacklist.includes(token)){
-            res.status(200).json({msg:"Already Logout please Login!"})
+            res.status(400).json({msg:"Already Logout please Login!"})
         }
         else{
             var decoded = jwt.verify(token, "furniture");
