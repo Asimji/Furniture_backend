@@ -20,7 +20,7 @@ userRouter.post('/signup',async(req,res)=>{
          res.status(200).json({msg:`${Full_Name} is Successfully Register`})
             }
             else{
-                res.status(200).json({error:err.message})
+                res.status(400).json({error:err.message})
             }
         });
     }
@@ -33,7 +33,7 @@ userRouter.post('/signup',async(req,res)=>{
   }
     }
     else{
-        res.status(200).json({mg:"Password length is Below Level OR Incorrect Mobile No."})
+        res.status(400).json({mg:"Password length is Below Level OR Incorrect Mobile No."})
     }
 })
 
@@ -50,12 +50,12 @@ userRouter.post("/login",async(req,res)=>{
                     res.status(200).json({msg:`Welcome ${user.Full_Name} You are Now Login`,token})
                 }
                 else{
-                    res.status(200).json({msg:"Incorrect Password"})
+                    res.status(400).json({msg:"Incorrect Password"})
                 }
             });
         }
         else{
-            res.status(200).json({msg:'User not Exist'})
+            res.status(400).json({msg:'User not Exist'})
         }
     } catch (error) {
         res.status(400).json({error:error.message})
@@ -67,7 +67,7 @@ userRouter.get("/logout",async(req,res)=>{
     try {
             if(token){
             if(blacklist.includes(token)){
-                res.status(200).json({msg:"Already Logout"})
+                res.status(400).json({msg:"Already Logout"})
             }
             else{
                 blacklist.push(token);
@@ -75,7 +75,7 @@ userRouter.get("/logout",async(req,res)=>{
             }
         } 
         else{
-            res.status(200).json({msg:"You are Not Authorised"})
+            res.status(400).json({msg:"You are Not Authorised"})
         }
     }
     catch (error) {
